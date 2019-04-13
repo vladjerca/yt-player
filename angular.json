@@ -56,7 +56,7 @@
               "projects/yt-demo/src/favicon.ico"
             ],
             "styles": [
-              "projects/yt-demo/src/styles.css"
+              "projects/yt-demo/src/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -113,7 +113,7 @@
             "tsConfig": "projects/yt-demo/tsconfig.spec.json",
             "karmaConfig": "projects/yt-demo/karma.conf.js",
             "styles": [
-              "projects/yt-demo/src/styles.css"
+              "projects/yt-demo/src/styles.scss"
             ],
             "scripts": [],
             "assets": [
