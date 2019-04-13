@@ -39,7 +39,6 @@ export class YtSliderComponent implements OnDestroy {
     if (isNaN(value)) { return; }
 
     this._progress = value;
-    this.progressChange.emit(value);
   }
 
   @Output()
@@ -81,11 +80,11 @@ export class YtSliderComponent implements OnDestroy {
         map(progress => Math.max(0, Math.min(progress, 100))),
         takeUntil(mouseUp$),
       )
-      .subscribe(progress => this.progress = progress);
+      .subscribe(this._emit);
   }
 
   public jumpToProgress(ev: MouseEvent) {
-    this.progress = this._evToProgress(ev);
+    this._emit(this._evToProgress(ev));
   }
 
   private _evToProgress = (ev: MouseEvent) => {
@@ -93,5 +92,10 @@ export class YtSliderComponent implements OnDestroy {
     const mouseX = ev.clientX;
 
     return (mouseX - rect.x) / this._slideEl.clientWidth * 100;
+  }
+
+  private _emit = (value: number) => {
+    this.progress = value;
+    this.progressChange.emit(value);
   }
 }
