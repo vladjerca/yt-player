@@ -91,7 +91,7 @@ export class YtSliderComponent implements OnDestroy {
     const rect = (this._slideEl.getBoundingClientRect() as DOMRect);
     const mouseX = ev.clientX;
 
-    return (mouseX - rect.x) / this._slideEl.clientWidth * 100;
+    return (mouseX - rect.left) / this._slideEl.clientWidth * 100;
   }
 
   private _emit = (value: number) => {
