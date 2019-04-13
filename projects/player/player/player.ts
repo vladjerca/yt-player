@@ -1,5 +1,3 @@
-import { PlayState } from '@yt/player';
-
 import {
   fromEvent,
   interval,
@@ -14,6 +12,8 @@ import {
   startWith,
   takeUntil,
 } from 'rxjs/operators';
+
+import { PlayState } from '../controls';
 
 const gcd = (width: number, height: number) =>
   (height === 0) ? width : gcd(height, width % height);

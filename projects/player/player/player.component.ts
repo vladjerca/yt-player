@@ -9,7 +9,6 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { PlayState } from '@yt/player';
 
 import {
   fromEvent,
@@ -26,6 +25,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
+import { PlayState } from '../controls';
 import { YtPlayer } from './player';
 
 const enum VideoMimeType {
