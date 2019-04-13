@@ -19,7 +19,7 @@
       "dom"
     ],
     "paths": {
-      "@yt/player": [
+      "@vladjerca/yt-player": [
         "./projects/player/public-api.ts"
       ]
     }

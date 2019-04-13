@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { YtPlayerModule } from '@yt/player';
+import { YtPlayerModule } from '@vladjerca/yt-player';
 
 import { AppComponent } from './app.component';
 
