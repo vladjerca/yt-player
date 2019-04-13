@@ -1,7 +1,9 @@
 <div class="yt-video-controls"
      (click)="$event.stopPropagation()">
   <div class="yt-video-progress">
-    <yt-slider [progress]="player.progress$ | async"></yt-slider>
+    <yt-slider [progress]="player.progress$ | async"
+               (progressChange)="player.seekProgress($event)">
+    </yt-slider>
   </div>
   <div class="yt-video-controls-left">
     <yt-control-play-pause [(state)]="player.state">

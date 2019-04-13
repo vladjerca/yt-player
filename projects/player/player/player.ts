@@ -158,6 +158,13 @@ export class YtPlayer {
       PlayState.Playing;
   }
 
+  public seekProgress(percentage: number) {
+    if (isNaN(this._video.duration)) { return; }
+
+    this._video.currentTime = this._video.duration * percentage / 100;
+    this._stateChange$.next();
+  }
+
   public destroy() {
     this._stateChange$.complete();
     this._destroyed$.next();
