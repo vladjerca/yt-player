@@ -1,17 +1,15 @@
 @import ",./../../../styles/constants";
 
 yt-slider {
-  $_slider-height: 3px;
-  $_thumb-size: 12px;
-
   display: block;
   width: 100%;
-  height: $_thumb-size + $_margin * 2;
+  height: $_thumb-height;
 
   .yt-slider {
     &-progress-container {
       width: 100%;
       position: relative;
+      height: $_thumb-height;
       cursor: pointer;
     }
 
@@ -41,7 +39,7 @@ yt-slider {
     &-progress,
     &-track {
       position: absolute;
-      bottom: ($_thumb-size + $_margin * 2 - $_slider-height) / 2;
+      bottom: ($_thumb-height - $_slider-height) / 2;
       height: $_slider-height;
     }
   }
