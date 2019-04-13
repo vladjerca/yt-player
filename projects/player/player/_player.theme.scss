@@ -1,0 +1,20 @@
+@import "../styles/constants";
+
+@mixin yt-player-theme($theme) {
+  $player: map-get($theme, "player");
+
+  $progress-color: map-get($player, "progress");
+
+  yt-player {
+    .yt {
+      &-video {
+        &-progress {
+          .yt-slider-thumb,
+          .yt-slider-progress {
+            background-color: $progress-color;
+          }
+        }
+      }
+    }
+  }
+}

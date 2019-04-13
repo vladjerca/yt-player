@@ -20,6 +20,7 @@ yt-slider {
       background-color: $_white-alto;
 
       &-click-area {
+        position: absolute;
         padding: $_margin;
         cursor: pointer;
         user-select: none;

@@ -1,0 +1,5 @@
+@import "../player/player.theme";
+
+@mixin yt-theme($theme) {
+  @include yt-player-theme($theme);
+}
