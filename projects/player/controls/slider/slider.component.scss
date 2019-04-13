@@ -1,12 +1,12 @@
+@import ",./../../../styles/constants";
+
 yt-slider {
   $_slider-height: 3px;
   $_thumb-size: 12px;
-  $_thumb-area-padding: 10px;
-  $_default-color: #dfdfdf;
 
   display: block;
   width: 100%;
-  height: $_thumb-size + $_thumb-area-padding * 2;
+  height: $_thumb-size + $_margin * 2;
 
   .yt-slider {
     &-progress-container {
@@ -19,10 +19,10 @@ yt-slider {
       width: $_thumb-size;
       height: $_thumb-size;
       border-radius: 50%;
-      background-color: $_default-color;
+      background-color: $_white-alto;
 
       &-click-area {
-        padding: $_thumb-area-padding;
+        padding: $_margin;
         cursor: pointer;
         user-select: none;
       }
@@ -30,17 +30,18 @@ yt-slider {
 
     &-track {
       width: 100%;
-      background-color: rgba($_default-color, 0.3);
+      background-color: $_white-alto;
+      opacity: 0.3;
     }
 
     &-progress {
-      background-color: $_default-color;
+      background-color: $_white-alto;
     }
 
     &-progress,
     &-track {
       position: absolute;
-      bottom: ($_thumb-size + $_thumb-area-padding * 2 - $_slider-height) / 2;
+      bottom: ($_thumb-size + $_margin * 2 - $_slider-height) / 2;
       height: $_slider-height;
     }
   }

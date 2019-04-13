@@ -1,3 +1,5 @@
+@import '../../styles/constants';
+
 yt-control-volume {
   .yt {
     &-control-volume {
@@ -9,7 +11,7 @@ yt-control-volume {
           .yt-control-volume-slider {
             width: 65px;
             opacity: 1;
-            margin-left: 5px;
+            margin-left: $_margin / 3;
           }
         }
       }
@@ -19,7 +21,8 @@ yt-control-volume {
         width: 0;
         opacity: 0;
         margin-left: 0;
-        transition: opacity, margin-left, width ease-in-out 200ms;
+        transition: $_default-transition;
+        transition-property: opacity, margin-left, width;
       }
     }
   }
