@@ -3,6 +3,7 @@ import { PlayState } from '@yt/player';
 import {
   fromEvent,
   interval,
+  merge,
   Observable,
   Subject,
 } from 'rxjs';
@@ -12,7 +13,6 @@ import {
   share,
   startWith,
   takeUntil,
-  tap,
 } from 'rxjs/operators';
 
 const gcd = (width: number, height: number) =>
@@ -77,6 +77,8 @@ export class YtPlayer {
     ) {
       this._video.pause();
     }
+
+    this._stateChange$.next();
   }
 
   public get isFullscreenEnabled() {
@@ -96,6 +98,7 @@ export class YtPlayer {
   public readonly currentTime$: Observable<Date>;
   public readonly totalTime$: Observable<Date>;
 
+  private _stateChange$ = new Subject();
   private _fullscreen = false;
   private _destroyed$ = new Subject();
 
@@ -126,13 +129,17 @@ export class YtPlayer {
         filter(() => this.state === PlayState.Playing),
       );
 
-    this.progress$ = interval$.pipe(
+    const timeTrigger$ = merge(
+      interval$,
+      this._stateChange$,
+    );
+
+    this.progress$ = timeTrigger$.pipe(
       map(() => this._video.currentTime / this._video.duration * 100),
-      tap(progress => console.log({ progress, duration: this._video.duration, current: this._video.currentTime })),
       startWith(0),
     );
 
-    this.currentTime$ = interval$
+    this.currentTime$ = timeTrigger$
       .pipe(
         startWith(0),
         map(() => this._secondsToDate(this._video.currentTime)),
@@ -152,6 +159,7 @@ export class YtPlayer {
   }
 
   public destroy() {
+    this._stateChange$.complete();
     this._destroyed$.next();
     this._destroyed$.complete();
   }
