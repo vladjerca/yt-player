@@ -17,6 +17,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@yt/player": [
+        "./projects/player/public-api.ts"
+      ]
+    }
   }
 }

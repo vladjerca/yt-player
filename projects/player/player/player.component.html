@@ -1,0 +1,24 @@
+<div class="yt-video-controls"
+     (click)="$event.stopPropagation()">
+  <div class="yt-video-progress">
+    <yt-slider [progress]="player.progress$ | async"></yt-slider>
+  </div>
+  <div class="yt-video-controls-left">
+    <yt-control-play-pause [(state)]="player.state">
+    </yt-control-play-pause>
+    <yt-control-volume [(volume)]="player.volume"
+                       [(mute)]="player.mute">
+    </yt-control-volume>
+    <div *ngIf="(player.totalTime$ | async) as totalTime"
+         [style.opacity]="totalTime == 'Invalid Date' ? 0 : 1"
+         class="yt-video-timespan">
+      <span>{{ player.currentTime$ | async | date:'mm:ss' }}</span> / <span
+            *ngIf="totalTime != 'Invalid Date'">{{ totalTime | date:'mm:ss' }}</span>
+    </div>
+  </div>
+  <div class="yt-video-controls-right">
+    <yt-control-size *ngIf="player.isFullscreenEnabled"
+                     [(fullscreen)]="player.fullscreen">
+    </yt-control-size>
+  </div>
+</div>

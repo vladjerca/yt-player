@@ -1,0 +1,14 @@
+<div class="yt-slider-progress-container"
+     (click)="jumpToProgress($event)">
+     <div class="yt-slider-thumb-click-area"
+          #clickArea
+          (mousedown)="startDrag()"
+          [style.marginLeft]="'calc(' + progress + '% - ' + clickArea.clientHeight / 2 + 'px)'"
+          draggable="false">
+          <div class="yt-slider-thumb">
+          </div>
+     </div>
+     <div class="yt-slider-progress"
+          [style.width.%]="progress"></div>
+     <div class="yt-slider-track"></div>
+</div>

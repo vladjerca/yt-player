@@ -1,0 +1,26 @@
+yt-control-volume {
+  .yt {
+    &-control-volume {
+      &-container {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          .yt-control-volume-slider {
+            width: 65px;
+            opacity: 1;
+            margin-left: 5px;
+          }
+        }
+      }
+
+
+      &-slider {
+        width: 0;
+        opacity: 0;
+        margin-left: 0;
+        transition: opacity, margin-left, width ease-in-out 200ms;
+      }
+    }
+  }
+}
