@@ -1,3 +1,7 @@
 <div class="video-player-container">
-  <yt-player [source]="video"></yt-player>
+  <yt-player>
+    <yt-source [src]="video.mp4"></yt-source>
+    <yt-source [src]="video.ogg"></yt-source>
+    <yt-source [src]="video.webm"></yt-source>
+  </yt-player>
 </div>

@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChildren,
   ElementRef,
   HostBinding,
   HostListener,
   Input,
   OnDestroy,
+  QueryList,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
@@ -27,29 +29,12 @@ import {
 
 import { PlayState } from '../controls';
 import { YtPlayer } from './player';
-
-const enum VideoMimeType {
-  Mp4 = 'video/mp4',
-  WebM = 'video/webm',
-  Ogg = 'video/ogg',
-}
-
-const enum VideoExtension {
-  Mp4 = 'mp4',
-  WebM = 'webm',
-  Ogg = 'ogg',
-}
+import { YtSourceDirective } from './source/source.directive';
 
 const enum MouseState {
   Idle,
   Moving,
 }
-
-const VideoExtensionMime: Record<VideoExtension, VideoMimeType> = {
-  [VideoExtension.Mp4]: VideoMimeType.Mp4,
-  [VideoExtension.WebM]: VideoMimeType.WebM,
-  [VideoExtension.Ogg]: VideoMimeType.Ogg,
-};
 
 @Component({
   selector: 'yt-player',
@@ -59,22 +44,15 @@ const VideoExtensionMime: Record<VideoExtension, VideoMimeType> = {
   encapsulation: ViewEncapsulation.None,
 })
 export class YtPlayerComponent implements OnDestroy {
-  @Input()
-  public set source(value: string) {
-    const [extension] = value.toLocaleLowerCase().split('.').reverse();
 
-    const mimeType = VideoExtensionMime[extension];
-
-    if (!mimeType) { throw new Error(`The video type ${extension} is not supported!`); }
-
-    this._renderer.setProperty(this._video, 'innerHtml', '');
-    const source: HTMLSourceElement = this._renderer.createElement('source');
-    this._renderer.setProperty(source, 'src', value);
-    this._renderer.setProperty(source, 'type', mimeType);
-    this._renderer.appendChild(this._video, source);
+  @ContentChildren(YtSourceDirective)
+  public set sources(sources: QueryList<YtSourceDirective>) {
+    const sourceList = sources ? sources.toArray() : [];
+    sourceList.forEach(source =>
+      this._renderer
+        .appendChild(this._video, source.srcEl),
+    );
   }
-
-  public player: YtPlayer;
 
   @HostBinding('class.yt-player-state-playing')
   public get statePlaying() {
@@ -94,6 +72,14 @@ export class YtPlayerComponent implements OnDestroy {
   @HostBinding('class.yt-player-view-state-fullscreen')
   public get viewStateFullscreen() {
     return this.player.fullscreen;
+  }
+  public player: YtPlayer;
+
+  @Input()
+  public set muted(value: boolean) {
+    if (value == null) { return; }
+
+    this.player.mute = !!value;
   }
 
   public readonly focusedControl$ = new Subject();

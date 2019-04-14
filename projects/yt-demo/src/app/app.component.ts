@@ -14,5 +14,9 @@ import { Component } from '@angular/core';
   `],
 })
 export class AppComponent {
-  public video = 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4';
+  public video = {
+    mp4: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4',
+    ogg: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.ogg',
+    webm: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.webm',
+  };
 }

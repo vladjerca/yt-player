@@ -8,6 +8,7 @@ import {
   YtVolumeControlComponent,
 } from '../controls';
 import { YtPlayerComponent } from './player.component';
+import { YtSourceDirective } from './source/source.directive';
 
 const CONTROLS = [
   YtVolumeControlComponent,
@@ -18,6 +19,7 @@ const CONTROLS = [
 
 const EXPORTS = [
   YtPlayerComponent,
+  YtSourceDirective,
 ];
 
 @NgModule({
