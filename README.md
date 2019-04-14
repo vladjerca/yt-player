@@ -76,4 +76,4 @@ autoplay: boolean;
 
 ## Preview
 
-![](yt-player.gif)
+![](yt-player.webp)
