@@ -3,4 +3,18 @@
   height: 28px;
   padding: 5px;
   cursor: pointer;
+
+  &-click-focus {
+    .yt-control:focus {
+      outline: none;
+    }
+  }
+}
+
+button.yt-control {
+  margin: 0;
+  border: 0;
+  background: 0;
+  color: inherit;
+  box-sizing: content-box;
 }

@@ -4,9 +4,12 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+
+import { YtControlComponent } from '../shared';
 
 export enum PlayState {
   Playing,
@@ -20,7 +23,7 @@ export enum PlayState {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class YtPlayPauseControlComponent implements OnDestroy {
+export class YtPlayPauseControlComponent extends YtControlComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: naming-convention
   public PlayState = PlayState;
 
@@ -38,7 +41,7 @@ export class YtPlayPauseControlComponent implements OnDestroy {
 
   private _state;
 
-  constructor() {
+  ngOnInit() {
     this.stateChange.emit(this.state);
   }
 
@@ -48,5 +51,6 @@ export class YtPlayPauseControlComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.stateChange.complete();
+    this._destroy();
   }
 }
