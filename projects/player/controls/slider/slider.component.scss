@@ -17,7 +17,7 @@ yt-slider {
       width: $_thumb-size;
       height: $_thumb-size;
       border-radius: 50%;
-      background-color: $_white-alto;
+      background-color: $_white-clouds;
 
       &-click-area {
         position: absolute;
@@ -29,11 +29,11 @@ yt-slider {
 
     &-track {
       width: 100%;
-      background-color: rgba($_white-alto, .3);
+      background-color: rgba($_white-clouds, .3);
     }
 
     &-progress {
-      background-color: $_white-alto;
+      background-color: $_white-clouds;
     }
 
     &-progress,

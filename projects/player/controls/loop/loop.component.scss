@@ -1,0 +1,14 @@
+yt-control-loop {
+  .yt-control-loop-disabled {
+    svg {
+      opacity: 0.4;
+    }
+
+    &:hover,
+    &:focus {
+      svg {
+        opacity: 0.55;
+      }
+    }
+  }
+}
