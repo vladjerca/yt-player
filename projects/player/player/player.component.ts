@@ -153,10 +153,12 @@ export class YtPlayerComponent implements OnDestroy {
     this.player.destroy();
   }
 
-  @HostListener('click')
-  @HostListener('keyup.enter')
-  @HostListener('keyup.space')
-  public togglePlay() {
+  @HostListener('click', ['$event'])
+  @HostListener('keyup.enter', ['$event'])
+  @HostListener('keyup.space', ['$event'])
+  public togglePlay(ev: Event) {
+    if ((ev.target as Element).classList.contains('yt-control')) { return; }
+
     this.player.togglePlay();
   }
 }
