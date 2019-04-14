@@ -33,4 +33,10 @@ API:
 ```ts
 @Input()
 muted: boolean;
+
+@Input()
+preload: PreloadStrategy;
+
+@Input()
+autoplay: boolean;
 ```

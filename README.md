@@ -28,8 +28,6 @@ $theme: (
 
 ## Component Usage
 
-At the moment the API offers basic functionality, so not a lot of options (for now 😉).
-
 `app.module` configuration
 
 ```ts
@@ -61,6 +59,12 @@ API:
 ```ts
 @Input()
 muted: boolean;
+
+@Input()
+preload: PreloadStrategy;
+
+@Input()
+autoplay: boolean;
 ```
 
 ## Thanks go to `@iandevlin` for his `mdn` video player 🎊
