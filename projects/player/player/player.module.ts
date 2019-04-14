@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import {
+  YtLoopControlComponent,
   YtPlayPauseControlComponent,
   YtSizeControlComponent,
   YtSliderComponent,
@@ -14,6 +15,7 @@ const CONTROLS = [
   YtVolumeControlComponent,
   YtPlayPauseControlComponent,
   YtSizeControlComponent,
+  YtLoopControlComponent,
   YtSliderComponent,
 ];
 

@@ -83,6 +83,13 @@ export class YtPlayer {
     this._stateChange$.next();
   }
 
+  public get loop() {
+    return this._video.loop;
+  }
+  public set loop(value: boolean) {
+    this._video.loop = !!value;
+  }
+
   public set preload(value: PreloadStrategy) {
     this._video.preload = value;
   }
