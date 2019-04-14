@@ -28,7 +28,7 @@ export class YtVolumeControlComponent extends YtControlComponent implements OnDe
   public set volume(value: number) {
     if (isNaN(value)) { return; }
 
-    this._volume = value;
+    this._volume = this._clampVolume(value);
     this.volumeChange.emit(this._volume);
   }
 
@@ -57,4 +57,7 @@ export class YtVolumeControlComponent extends YtControlComponent implements OnDe
     this.volumeChange.complete();
     this._destroy();
   }
+
+  private _clampVolume = (value: number) =>
+    Math.min(Math.max(0, value), 1)
 }
