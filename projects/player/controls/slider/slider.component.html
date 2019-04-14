@@ -1,7 +1,14 @@
-<div class="yt-slider-progress-container"
-     (click)="jumpToProgress($event)"
-     onmousedown="return false">
-     <div class="yt-slider-track"></div>
+<div (click)="jumpToProgress($event); trackRef?.blur()"
+     onmousedown="return false"
+     class="yt-slider-progress-container">
+     <div class="yt-slider-track"
+          #trackRef
+          (focus)="focused.emit()"
+          (blur)="blured.emit()"
+          (keydown.ArrowLeft)="updateBy(-5)"
+          (keydown.ArrowRight)="updateBy(5)"
+          tabindex="0">
+     </div>
      <div class="yt-slider-progress"
           [style.width.%]="progress"></div>
      <div class="yt-slider-thumb-click-area"

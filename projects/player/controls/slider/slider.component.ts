@@ -44,6 +44,12 @@ export class YtSliderComponent implements OnDestroy {
   @Output()
   public progressChange = new EventEmitter<number>();
 
+  @Output()
+  public focused = new EventEmitter<number>();
+
+  @Output()
+  public blured = new EventEmitter<number>();
+
   private _dragging = false;
   private _progress = 0;
   private _slideEl: HTMLElement;
@@ -54,8 +60,13 @@ export class YtSliderComponent implements OnDestroy {
     this._slideEl = _ref.nativeElement;
   }
 
+  public updateBy(value: number) {
+    this._updateAndEmit(this._progress + value);
+  }
+
   ngOnDestroy() {
     this.progressChange.complete();
+    this.focused.complete();
   }
 
   public startDrag() {
@@ -77,14 +88,14 @@ export class YtSliderComponent implements OnDestroy {
         filter(() => !!this._dragging),
         throttleTime(1000 / 60),
         map(this._evToProgress),
-        map(progress => Math.max(0, Math.min(progress, 100))),
+        map(this._clampProgress),
         takeUntil(mouseUp$),
       )
-      .subscribe(this._emit);
+      .subscribe(this._updateAndEmit);
   }
 
   public jumpToProgress(ev: MouseEvent) {
-    this._emit(this._evToProgress(ev));
+    this._updateAndEmit(this._evToProgress(ev));
   }
 
   private _evToProgress = (ev: MouseEvent) => {
@@ -94,8 +105,11 @@ export class YtSliderComponent implements OnDestroy {
     return (mouseX - rect.left) / this._slideEl.clientWidth * 100;
   }
 
-  private _emit = (value: number) => {
-    this.progress = value;
+  private _clampProgress = (progress: number) =>
+    Math.max(0, Math.min(progress, 100))
+
+  private _updateAndEmit = (value: number) => {
+    this.progress = this._clampProgress(value);
     this.progressChange.emit(value);
   }
 }

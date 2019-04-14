@@ -29,8 +29,7 @@ yt-slider {
 
     &-track {
       width: 100%;
-      background-color: $_white-alto;
-      opacity: 0.3;
+      background-color: rgba($_white-alto, .3);
     }
 
     &-progress {
