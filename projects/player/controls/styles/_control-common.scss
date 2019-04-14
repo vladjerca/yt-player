@@ -1,8 +1,19 @@
+@import './../../styles/constants';
+
 .yt-control {
   width: 28px;
   height: 28px;
   padding: 5px;
+  opacity: 0.85;
+  color: inherit;
+  transition: $_default-transition;
+  transition-property: opacity;
   cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
 
   &-click-focus {
     .yt-control:focus {
@@ -15,6 +26,5 @@ button.yt-control {
   margin: 0;
   border: 0;
   background: 0;
-  color: inherit;
   box-sizing: content-box;
 }
