@@ -17,8 +17,8 @@
     <div *ngIf="(player.totalTime$ | async) as totalTime"
          [style.opacity]="totalTime == 'Invalid Date' ? 0 : 1"
          class="yt-video-timespan">
-      <span>{{ player.currentTime$ | async | date:'mm:ss' }}</span> / <span
-            *ngIf="totalTime != 'Invalid Date'">{{ totalTime | date:'mm:ss' }}</span>
+      <span>{{ player.currentTime$ | async | date:'m:ss' }}</span> / <span
+            *ngIf="totalTime != 'Invalid Date'">{{ totalTime | date:'m:ss' }}</span>
     </div>
   </div>
   <div class="yt-video-controls-right">
