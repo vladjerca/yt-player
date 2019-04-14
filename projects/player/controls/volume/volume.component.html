@@ -1,8 +1,9 @@
-<div class="yt-control-volume-container">
-  <div class="yt-control yt-control-volume yt-control-volume-icon"
-       (click)="mute = !mute">
-    <ng-container *ngIf="volume === 0 ||
-                         mute">
+<div class="yt-control-volume-container"
+     [class.yt-control-volume-slider-state-focused]="isVolumeSliderFocused">
+  <button (click)="mute = !mute"
+          (focus)="focused.emit()"
+          class="yt-control yt-control-volume yt-control-volume-icon">
+    <ng-container *ngIf="volume === 0">
       <svg xmlns="http://www.w3.org/2000/svg"
            viewBox="0 0 24 24"
            fill="currentColor">
@@ -12,17 +13,15 @@
     </ng-container>
 
     <ng-container *ngIf="volume > 0 &&
-                         volume <= .5 &&
-                         !mute">
+                         volume <= .5">
       <svg xmlns="http://www.w3.org/2000/svg"
-           viewBox="0 0 24 24"
+           viewBox="2 0 24 24"
            fill="currentColor">
         <path d="M18.5 12A4.5 4.5 0 0 0 16 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z" />
       </svg>
     </ng-container>
 
-    <ng-container *ngIf="volume > .5 &&
-                         !mute">
+    <ng-container *ngIf="volume > .5">
       <svg xmlns="http://www.w3.org/2000/svg"
            viewBox="0 0 24 24"
            fill="currentColor">
@@ -30,10 +29,12 @@
               d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
       </svg>
     </ng-container>
-  </div>
+  </button>
   <div class="yt-control-volume-slider">
     <yt-slider [progress]="volume * 100"
-               (progressChange)="volume = $event / 100">
+               (progressChange)="volume = $event / 100"
+               (focused)="isVolumeSliderFocused = true; focused.emit()"
+               (blured)="isVolumeSliderFocused = false">
     </yt-slider>
   </div>
 </div>

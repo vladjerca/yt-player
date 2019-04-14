@@ -1,4 +1,4 @@
-@import '../../styles/constants';
+@import "../../styles/constants";
 
 yt-control-volume {
   .yt {
@@ -7,7 +7,8 @@ yt-control-volume {
         display: flex;
         align-items: center;
 
-        &:hover {
+        &:hover,
+        &.yt-control-volume-slider-state-focused {
           .yt-control-volume-slider {
             width: 65px;
             opacity: 1;
@@ -15,7 +16,6 @@ yt-control-volume {
           }
         }
       }
-
 
       &-slider {
         width: 0;
