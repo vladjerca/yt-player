@@ -28,7 +28,10 @@ import {
 } from 'rxjs/operators';
 
 import { PlayState } from '../controls';
-import { YtPlayer } from './player';
+import {
+  PreloadStrategy,
+  YtPlayer,
+} from './player';
 import { YtSourceDirective } from './source/source.directive';
 
 const enum MouseState {
@@ -80,6 +83,16 @@ export class YtPlayerComponent implements OnDestroy {
     if (value == null) { return; }
 
     this.player.mute = !!value;
+  }
+
+  @Input()
+  public set preload(value: PreloadStrategy) {
+    this.player.preload = value;
+  }
+
+  @Input()
+  public set autoplay(value: boolean) {
+    this.player.autoplay = !!value;
   }
 
   public readonly focusedControl$ = new Subject();

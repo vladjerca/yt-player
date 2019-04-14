@@ -23,6 +23,8 @@ interface ISize {
   height: number;
 }
 
+export type PreloadStrategy = 'none' | 'metadata' | 'auto';
+
 export class YtPlayer {
   public get volume() {
     return this._video.volume;
@@ -79,6 +81,14 @@ export class YtPlayer {
     }
 
     this._stateChange$.next();
+  }
+
+  public set preload(value: PreloadStrategy) {
+    this._video.preload = value;
+  }
+
+  public set autoplay(value: boolean) {
+    this._video.autoplay = value;
   }
 
   public get isFullscreenEnabled() {
