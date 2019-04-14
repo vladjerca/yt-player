@@ -32,6 +32,12 @@ yt-player {
   }
 
   .yt {
+    &-player {
+      &-time {
+        margin: 0 $_margin / 3;
+      }
+    }
+
     &-video {
       &-progress {
         width: calc(100% - #{$_margin * 2});
