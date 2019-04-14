@@ -1,24 +1,34 @@
-# Player
+## Component Usage
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+At the moment the API offers basic functionality, so not a lot of options (for now 😉).
 
-## Code scaffolding
+`app.module` configuration
 
-Run `ng generate component component-name --project player` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project player`.
-> Note: Don't forget to add `--project player` or else it will be added to the default project in your `angular.json` file. 
+```ts
+import { YtPlayerModule } from '@vladjerca/yt-player';
 
-## Build
 
-Run `ng build player` to build the project. The build artifacts will be stored in the `dist/` directory.
+@NgModule({
+  imports: [
+    YtPlayerModule,
+  ]
+})
+export class AppModule { }
 
-## Publishing
+```
 
-After building your library with `ng build player`, go to the dist folder `cd dist/player` and run `npm publish`.
+`markup`
 
-## Running unit tests
+``` html
+<yt-player [source]="video"></yt-player>
+```
 
-Run `ng test player` to execute the unit tests via [Karma](https://karma-runner.github.io).
+API:
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+@Input()
+/**
+ * Video source file, accepted formats: mp4, ogv, webm.
+*/
+source: string;
+```

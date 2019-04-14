@@ -1,27 +1,66 @@
-# Yt
+YT Player
+=======
+<a href="https://badge.fury.io/js/%40vladjerca%2Fyt-player">
+  <img class="retina-badge" src="https://badge.fury.io/js/%40vladjerca%2Fyt-player.svg">
+</a>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+## Development Notes
 
-## Development server
+1. Install `npm i @vladjerca/yt-player`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Themeing
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Just import the theming file in your main `scss`.
 
-## Build
+```scss
+@import "~@vladjerca/player/theming";
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+$theme: (
+  player: (
+    progress: #c0392b
+  )
+);
 
-## Running unit tests
+@include yt-theme($theme);
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Running end-to-end tests
+## Component Usage
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+At the moment the API offers basic functionality, so not a lot of options (for now 😉).
 
-## Further help
+`app.module` configuration
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+import { YtPlayerModule } from '@vladjerca/yt-player';
+
+
+@NgModule({
+  imports: [
+    YtPlayerModule,
+  ]
+})
+export class AppModule { }
+
+```
+
+`markup`
+
+``` html
+<yt-player [source]="video"></yt-player>
+```
+
+API:
+
+```ts
+@Input()
+/**
+ * Video source file, accepted formats: mp4, ogv, webm.
+*/
+source: string;
+```
+
+## Preview
+
+![](yt-player.gif)
