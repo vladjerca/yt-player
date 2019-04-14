@@ -8,6 +8,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import { YtControlComponent } from '../shared';
+
 @Component({
   selector: 'yt-control-size',
   templateUrl: './size.component.html',
@@ -17,7 +19,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class YtSizeControlComponent implements OnDestroy {
+export class YtSizeControlComponent extends YtControlComponent implements OnDestroy {
   @Input()
   public get fullscreen() {
     return !!this._fullscreen;
@@ -34,5 +36,6 @@ export class YtSizeControlComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.fullscreenChange.complete();
+    this._destroy();
   }
 }
