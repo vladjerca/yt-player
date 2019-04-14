@@ -1,0 +1,4 @@
+{
+    "entry": "./projects/player/theming/_yt-theme.scss",
+    "dest": "./dist/player/_theming.scss"
+}
