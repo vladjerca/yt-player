@@ -96,6 +96,8 @@ export class YtPlayerComponent implements OnDestroy {
     return this.player.fullscreen;
   }
 
+  public readonly focusedControl$ = new Subject();
+
   private _video: HTMLVideoElement;
   private _destroyed$ = new Subject();
   private _mouseState = MouseState.Idle;
@@ -115,8 +117,13 @@ export class YtPlayerComponent implements OnDestroy {
       .pipe(
         share(),
         auditTime(250),
-        map(() => MouseState.Moving),
       );
+
+    const activity$ = merge(
+      this.focusedControl$.pipe(map(() => MouseState.Idle)),
+      move$,
+    )
+      .pipe(map(() => MouseState.Moving));
 
     const out$ = fromEvent(this._ref.nativeElement, 'mouseout')
       .pipe(
@@ -125,14 +132,14 @@ export class YtPlayerComponent implements OnDestroy {
 
     const idle$ = merge(
       out$,
-      move$
+      activity$
         .pipe(
           switchMapTo(of(MouseState.Idle).pipe(delay(1000))),
         ),
     );
 
     merge(
-      move$,
+      activity$,
       idle$,
     )
       .pipe(
@@ -148,6 +155,8 @@ export class YtPlayerComponent implements OnDestroy {
   }
 
   @HostListener('click')
+  @HostListener('keyup.enter')
+  @HostListener('keyup.space')
   public togglePlay() {
     this.player.togglePlay();
   }

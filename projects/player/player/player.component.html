@@ -2,14 +2,17 @@
      (click)="$event.stopPropagation()">
   <div class="yt-video-progress">
     <yt-slider [progress]="player.progress$ | async"
-               (progressChange)="player.seekProgress($event)">
+               (progressChange)="player.seekProgress($event)"
+               (focused)="focusedControl$.next()">
     </yt-slider>
   </div>
   <div class="yt-video-controls-left">
-    <yt-control-play-pause [(state)]="player.state">
+    <yt-control-play-pause [(state)]="player.state"
+                           (focused)="focusedControl$.next()">
     </yt-control-play-pause>
     <yt-control-volume [(volume)]="player.volume"
-                       [(mute)]="player.mute">
+                       [(mute)]="player.mute"
+                       (focused)="focusedControl$.next()">
     </yt-control-volume>
     <div *ngIf="(player.totalTime$ | async) as totalTime"
          [style.opacity]="totalTime == 'Invalid Date' ? 0 : 1"
@@ -20,7 +23,8 @@
   </div>
   <div class="yt-video-controls-right">
     <yt-control-size *ngIf="player.isFullscreenEnabled"
-                     [(fullscreen)]="player.fullscreen">
+                     [(fullscreen)]="player.fullscreen"
+                     (focused)="focusedControl$.next()">
     </yt-control-size>
   </div>
 </div>
