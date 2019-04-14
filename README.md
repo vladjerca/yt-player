@@ -48,18 +48,27 @@ export class AppModule { }
 `markup`
 
 ``` html
-<yt-player [source]="video"></yt-player>
+<!-- Video source file, accepted formats: mp4, ogv, webm. -->
+<yt-player>
+  <yt-source [src]="video.mp4"></yt-source>
+  <yt-source [src]="video.ogg"></yt-source>
+  <yt-source [src]="video.webm"></yt-source>
+</yt-player>
 ```
 
 API:
 
 ```ts
 @Input()
-/**
- * Video source file, accepted formats: mp4, ogv, webm.
-*/
-source: string;
+muted: boolean;
 ```
+
+## Thanks go to `@iandevlin` for his `mdn` video player 🎊
+
+<a href="https://github.com/iandevlin">
+  <img src="https://avatars0.githubusercontent.com/u/554326?s=400&v=4" title="iandevlin" width="80" height="80">
+</a>
+
 
 ## Preview
 

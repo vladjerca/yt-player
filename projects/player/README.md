@@ -20,15 +20,17 @@ export class AppModule { }
 `markup`
 
 ``` html
-<yt-player [source]="video"></yt-player>
+<!-- Video source file, accepted formats: mp4, ogv, webm. -->
+<yt-player>
+  <yt-source [src]="video.mp4"></yt-source>
+  <yt-source [src]="video.ogg"></yt-source>
+  <yt-source [src]="video.webm"></yt-source>
+</yt-player>
 ```
 
 API:
 
 ```ts
 @Input()
-/**
- * Video source file, accepted formats: mp4, ogv, webm.
-*/
-source: string;
+muted: boolean;
 ```
