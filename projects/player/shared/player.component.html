@@ -13,8 +13,7 @@
       <yt-control-play-pause [(state)]="player.state"
                              (focused)="focusedControl$.next()">
       </yt-control-play-pause>
-      <yt-control-volume *ngIf="player.mute == null &&
-                                player.volume == null"
+      <yt-control-volume *ngIf="player.hasAudio"
                          [(volume)]="player.volume"
                          [(mute)]="player.mute"
                          (focused)="focusedControl$.next()">

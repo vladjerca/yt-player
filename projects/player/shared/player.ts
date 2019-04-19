@@ -115,6 +115,10 @@ export class YtPlayer {
     );
   }
 
+  public get hasAudio() {
+    return this._video instanceof HTMLVideoElement;
+  }
+
   public readonly progress$: Observable<number>;
   public readonly size$: Observable<ISize>;
   public readonly currentTime$: Observable<Date>;
