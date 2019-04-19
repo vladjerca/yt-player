@@ -9,7 +9,7 @@
     "url": "https://github.com/vladjerca/@vladjerca/yt-player/issues"
   },
   "license": "MIT",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
