@@ -1,4 +1,4 @@
-@import "../player/player.theme";
+@import "../shared/player.theme";
 
 @mixin yt-theme($theme) {
   @include yt-player-theme($theme);

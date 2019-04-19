@@ -7,9 +7,11 @@ import {
   YtSizeControlComponent,
   YtSliderComponent,
   YtVolumeControlComponent,
-} from '../controls';
-import { YtPlayerComponent } from './player.component';
-import { YtSourceDirective } from './source/source.directive';
+} from './controls';
+import {
+  YtSourceDirective,
+  YtVideoPlayerComponent,
+} from './video-player';
 
 const CONTROLS = [
   YtVolumeControlComponent,
@@ -20,7 +22,7 @@ const CONTROLS = [
 ];
 
 const EXPORTS = [
-  YtPlayerComponent,
+  YtVideoPlayerComponent,
   YtSourceDirective,
 ];
 

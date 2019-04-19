@@ -1,9 +1,6 @@
-@import "../styles/constants";
-
-yt-player {
-  width: fit-content;
+@mixin player-styles() {
   height: fit-content;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   position: relative;
@@ -11,12 +8,12 @@ yt-player {
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 12px;
 
-  $_control-hide-delay: 2s;
-  $_progress-grow: 2px;
-
   video {
     width: 100%;
   }
+
+  $_control-hide-delay: 2s;
+  $_progress-grow: 2px;
 
   &.yt-player {
     &-state {

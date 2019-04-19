@@ -1,15 +1,9 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  ContentChildren,
   ElementRef,
   HostBinding,
   HostListener,
   Input,
   OnDestroy,
-  QueryList,
-  Renderer2,
-  ViewEncapsulation,
 } from '@angular/core';
 
 import {
@@ -28,35 +22,15 @@ import {
 } from 'rxjs/operators';
 
 import { PlayState } from '../controls';
-import {
-  PreloadStrategy,
-  YtPlayer,
-} from './player';
-import { YtSourceDirective } from './source/source.directive';
+import { PreloadStrategy } from '../types';
+import { YtPlayer } from './player';
 
 const enum MouseState {
   Idle,
   Moving,
 }
 
-@Component({
-  selector: 'yt-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-})
-export class YtPlayerComponent implements OnDestroy {
-
-  @ContentChildren(YtSourceDirective)
-  public set sources(sources: QueryList<YtSourceDirective>) {
-    const sourceList = sources ? sources.toArray() : [];
-    sourceList.forEach(source =>
-      this._renderer
-        .appendChild(this._video, source.srcEl),
-    );
-  }
-
+export abstract class PlayerComponent implements OnDestroy {
   @HostBinding('class.yt-player-state-playing')
   public get statePlaying() {
     return this.player.state === PlayState.Playing;
@@ -76,7 +50,7 @@ export class YtPlayerComponent implements OnDestroy {
   public get viewStateFullscreen() {
     return this.player.fullscreen;
   }
-  public player: YtPlayer;
+  public abstract player: YtPlayer;
 
   @Input()
   public set muted(value: boolean) {
@@ -97,22 +71,13 @@ export class YtPlayerComponent implements OnDestroy {
 
   public readonly focusedControl$ = new Subject();
 
-  private _video: HTMLVideoElement;
-  private _destroyed$ = new Subject();
   private _mouseState = MouseState.Idle;
+  private _destroyed$ = new Subject();
 
   constructor(
-    private _renderer: Renderer2,
-    private _ref: ElementRef,
+    ref: ElementRef,
   ) {
-    this._video = _renderer.createElement('video');
-    this._renderer.setProperty(this._video, 'controls', false);
-    this._renderer.setAttribute(this._video, 'class', 'yt-video');
-
-    this._renderer.appendChild(this._ref.nativeElement, this._video);
-    this.player = new YtPlayer(this._video, this._ref.nativeElement);
-
-    const move$ = fromEvent(this._ref.nativeElement, 'mousemove')
+    const move$ = fromEvent(ref.nativeElement, 'mousemove')
       .pipe(
         share(),
         auditTime(250),
@@ -124,7 +89,7 @@ export class YtPlayerComponent implements OnDestroy {
     )
       .pipe(map(() => MouseState.Moving));
 
-    const out$ = fromEvent(this._ref.nativeElement, 'mouseout')
+    const out$ = fromEvent(ref.nativeElement, 'mouseout')
       .pipe(
         map(() => MouseState.Idle),
       );
@@ -150,7 +115,6 @@ export class YtPlayerComponent implements OnDestroy {
   ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();
-    this.player.destroy();
   }
 
   @HostListener('click', ['$event'])

@@ -1,0 +1,39 @@
+<ng-container #container></ng-container>
+
+<ng-container *ngIf="!!player">
+  <div class="yt-video-controls"
+       (click)="$event.stopPropagation()">
+    <div class="yt-video-progress">
+      <yt-slider [progress]="player.progress$ | async"
+                 (progressChange)="player.seekProgress($event)"
+                 (focused)="focusedControl$.next()">
+      </yt-slider>
+    </div>
+    <div class="yt-video-controls-left">
+      <yt-control-play-pause [(state)]="player.state"
+                             (focused)="focusedControl$.next()">
+      </yt-control-play-pause>
+      <yt-control-volume *ngIf="player.mute == null &&
+                                player.volume == null"
+                         [(volume)]="player.volume"
+                         [(mute)]="player.mute"
+                         (focused)="focusedControl$.next()">
+      </yt-control-volume>
+      <div *ngIf="(player.totalTime$ | async) as totalTime"
+           [style.opacity]="totalTime == 'Invalid Date' ? 0 : 1"
+           class="yt-video-timespan">
+        <span class="yt-player-time yt-player-time-current">{{ player.currentTime$ | async | date:'m:ss' }}</span> /
+        <span *ngIf="totalTime != 'Invalid Date'"
+              class="yt-player-time yt-player-time-total">{{ totalTime | date:'m:ss' }}</span>
+      </div>
+    </div>
+    <div class="yt-video-controls-right">
+      <yt-control-loop [(loop)]="player.loop">
+      </yt-control-loop>
+      <yt-control-size *ngIf="player.isFullscreenEnabled"
+                       [(fullscreen)]="player.fullscreen"
+                       (focused)="focusedControl$.next()">
+      </yt-control-size>
+    </div>
+  </div>
+</ng-container>

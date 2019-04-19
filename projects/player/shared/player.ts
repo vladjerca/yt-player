@@ -14,6 +14,10 @@ import {
 } from 'rxjs/operators';
 
 import { PlayState } from '../controls';
+import {
+  IVideoRenderer,
+  PreloadStrategy,
+} from '../types';
 
 const gcd = (width: number, height: number) =>
   (height === 0) ? width : gcd(height, width % height);
@@ -23,7 +27,6 @@ interface ISize {
   height: number;
 }
 
-export type PreloadStrategy = 'none' | 'metadata' | 'auto';
 
 export class YtPlayer {
   public get volume() {
@@ -70,7 +73,9 @@ export class YtPlayer {
       this._video.paused &&
       value === PlayState.Playing
     ) {
-      this._video.play();
+      (async () => {
+        await this._video.play();
+      })();
     }
 
     if (
@@ -120,7 +125,7 @@ export class YtPlayer {
   private _destroyed$ = new Subject();
 
   constructor(
-    private _video: HTMLVideoElement,
+    private _video: IVideoRenderer,
     private _container: HTMLElement,
   ) {
     const loaded$ = fromEvent(this._video, 'loadeddata')

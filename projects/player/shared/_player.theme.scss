@@ -5,14 +5,12 @@
 
   $progress-color: map-get($player, "progress");
 
-  yt-player {
-    .yt {
-      &-video {
-        &-progress {
-          .yt-slider-thumb,
-          .yt-slider-progress {
-            background-color: $progress-color;
-          }
+  .yt {
+    &-video {
+      &-progress {
+        .yt-slider-thumb,
+        .yt-slider-progress {
+          background-color: $progress-color;
         }
       }
     }
