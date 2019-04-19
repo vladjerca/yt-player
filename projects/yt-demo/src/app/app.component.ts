@@ -19,4 +19,6 @@ export class AppComponent {
     ogg: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.ogg',
     webm: 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.webm',
   };
+
+  public images = Array(240).fill(0).map((_, idx) => `/assets/frame${(idx + 1).toString().padStart(4, '0')}.jpg`);
 }
