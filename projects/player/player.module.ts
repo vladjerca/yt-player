@@ -9,7 +9,7 @@ import {
   YtVolumeControlComponent,
 } from './controls';
 import { YtImagePlayerComponent } from './image-player';
-import { YtSequenceRendererComponent } from './image-player/sequence-renderer';
+import { YtSequenceRendererComponent } from './image-player/sequence-renderer/sequence-renderer.component';
 import {
   YtSourceDirective,
   YtVideoPlayerComponent,
