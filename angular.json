@@ -53,7 +53,12 @@
             "polyfills": "projects/yt-demo/src/polyfills.ts",
             "tsConfig": "projects/yt-demo/tsconfig.app.json",
             "assets": [
-              "projects/yt-demo/src/favicon.ico"
+              "projects/yt-demo/src/favicon.ico",
+              {
+                "glob": "*.jpg",
+                "input": "projects/yt-demo/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "projects/yt-demo/src/styles.scss"
