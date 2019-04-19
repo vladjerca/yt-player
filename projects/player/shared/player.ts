@@ -123,6 +123,8 @@ export class YtPlayer {
   public readonly size$: Observable<ISize>;
   public readonly currentTime$: Observable<Date>;
   public readonly totalTime$: Observable<Date>;
+  public readonly loading$: Observable<boolean>;
+
 
   private _stateChange$ = new Subject();
   private _fullscreen = false;
@@ -134,6 +136,11 @@ export class YtPlayer {
   ) {
     const loaded$ = fromEvent(this._video, 'loadeddata')
       .pipe(share());
+
+    this.loading$ = merge(
+      fromEvent(this._video, 'waiting').pipe(map(() => true)),
+      fromEvent(this._video, 'playing').pipe(map(() => false)),
+    );
 
     this.size$ = loaded$
       .pipe(

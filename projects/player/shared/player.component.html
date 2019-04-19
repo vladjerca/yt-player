@@ -1,6 +1,10 @@
 <ng-container #container></ng-container>
-
 <ng-container *ngIf="!!player">
+  <yt-spinner *ngIf="player.loading$ | async"
+              [diameter]="70"
+              [strokeWidth]="6"
+              class="yt-video-loader">
+  </yt-spinner>
   <div class="yt-video-controls"
        (click)="$event.stopPropagation()">
     <div class="yt-video-progress">

@@ -16,6 +16,7 @@ import {
 } from 'rxjs';
 import {
   filter,
+  map,
   take,
   takeUntil,
   tap,
@@ -24,6 +25,7 @@ import {
 import {
   IVideoRenderer,
   IVideoRendererHandler,
+  PlayerEventName,
   PreloadStrategy,
 } from '../../types';
 import { AnimationLoop } from './animation-loop';
@@ -85,9 +87,13 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
   private _events: {
     loadeddata: IVideoRendererHandler[],
     ended: IVideoRendererHandler[],
+    waiting: IVideoRendererHandler[],
+    playing: IVideoRendererHandler[],
   } = {
       loadeddata: [],
       ended: [],
+      waiting: [],
+      playing: [],
     };
 
   constructor(
@@ -102,7 +108,7 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
     this._renderer.appendChild(this._container, this._canvas);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this._animationLoop = new AnimationLoop(this.fps);
 
     this._imageStream = new ImageBufferedStream(
@@ -146,11 +152,11 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
         takeUntil(this._destroyed$),
       ).subscribe();
 
-    this._playWhenReadyIf(this.autoplay);
+    await this._playWhenReadyIf(this.autoplay);
 
     fromEvent(this._animationLoop, 'frame')
       .pipe(takeUntil(this._destroyed$))
-      .subscribe((ev) => {
+      .subscribe(async (ev) => {
         if (ev.frame === this._imageStream.length) {
           if (this.loop) {
             this._animationLoop.reset();
@@ -163,7 +169,8 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
 
         if (ev.frame >= this._imageStream.bufferedLength) {
           this.pause();
-          this._playWhenReadyIf(true);
+          await this._playWhenReadyIf(true);
+          this._emit('waiting');
           return;
         }
 
@@ -177,11 +184,11 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
     this._destroyed$.next();
   }
 
-  public addEventListener(event: 'loadeddata' | 'ended', handler: IVideoRendererHandler) {
+  public addEventListener(event: PlayerEventName, handler: IVideoRendererHandler) {
     this._events[event].push(handler);
   }
 
-  public removeEventListener(event: 'loadeddata' | 'ended', handler: IVideoRendererHandler) {
+  public removeEventListener(event: PlayerEventName, handler: IVideoRendererHandler) {
     const index = this._events[event].indexOf(handler);
 
     if (index !== -1) {
@@ -194,10 +201,10 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
       this._animationLoop.reset();
     }
 
-    return new Promise<void>((res) => {
+    return new Promise<void>((resolve) => {
       this.paused = false;
       this._animationLoop.play();
-      res(void 0);
+      resolve(void 0);
     });
   }
 
@@ -206,7 +213,7 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
     this._animationLoop.pause();
   }
 
-  private _emit(event: 'ended' | 'loadeddata') {
+  private _emit(event: PlayerEventName) {
     this._events[event].forEach(handler => handler());
   }
 
@@ -224,11 +231,13 @@ export class YtSequenceRendererComponent implements IVideoRenderer, OnInit, OnDe
   }
 
   private _playWhenReadyIf = (condition) => {
-    this._imageStream.progress$
+    return this._imageStream.progress$
       .pipe(
         take(1),
         filter(() => condition),
-        tap(() => this.play()),
+        tap(() => this.play),
+        tap(() => this._emit('playing')),
+        map(() => void 0),
       ).subscribe();
   }
 

@@ -36,6 +36,12 @@
     }
 
     &-video {
+      &-loader {
+        position: absolute;
+        top: calc(50% - 35px);
+        left: calc(50% - 35px);
+      }
+
       &-progress {
         width: calc(100% - #{$_margin * 2});
         display: inline-flex;
