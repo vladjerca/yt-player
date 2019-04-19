@@ -3,6 +3,7 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  Input,
   OnDestroy,
   QueryList,
   Renderer2,
@@ -30,6 +31,13 @@ export class YtVideoPlayerComponent extends PlayerComponent implements OnDestroy
       this._renderer
         .appendChild(this._video, source.srcEl),
     );
+  }
+
+  @Input()
+  public set muted(value: boolean) {
+    if (value == null) { return; }
+
+    this.player.mute = !!value;
   }
 
   public player: YtPlayer;

@@ -43,36 +43,59 @@ export abstract class PlayerComponent implements OnDestroy {
 
   @HostBinding('class.yt-player-state-paused')
   public get statePaused() {
+    if (!this.player) { return; }
+
     return this.player.state === PlayState.Paused;
   }
 
   @HostBinding('class.yt-player-view-state-fullscreen')
   public get viewStateFullscreen() {
+    if (!this.player) { return; }
+
     return this.player.fullscreen;
   }
   public abstract player: YtPlayer;
 
   @Input()
-  public set muted(value: boolean) {
-    if (value == null) { return; }
-
-    this.player.mute = !!value;
+  public get preload() {
+    return this._preload;
   }
-
-  @Input()
   public set preload(value: PreloadStrategy) {
+    this._preload = value;
+    if (!this.player) { return; }
+
     this.player.preload = value;
   }
 
   @Input()
+  public get autoplay() {
+    return this._autoplay;
+  }
   public set autoplay(value: boolean) {
+    this._autoplay = value;
+    if (!this.player) { return; }
+
     this.player.autoplay = !!value;
+  }
+
+  @Input()
+  public get loop() {
+    return this._loop;
+  }
+  public set loop(value: boolean) {
+    this._loop = value;
+    if (!this.player) { return; }
+
+    this.player.loop = !!value;
   }
 
   public readonly focusedControl$ = new Subject();
 
   private _mouseState = MouseState.Idle;
   private _destroyed$ = new Subject();
+  private _autoplay: boolean;
+  private _preload: PreloadStrategy;
+  private _loop: boolean;
 
   constructor(
     ref: ElementRef,

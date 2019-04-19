@@ -8,6 +8,8 @@ import {
   YtSliderComponent,
   YtVolumeControlComponent,
 } from './controls';
+import { YtImagePlayerComponent } from './image-player';
+import { YtSequenceRendererComponent } from './image-player/sequence-renderer';
 import {
   YtSourceDirective,
   YtVideoPlayerComponent,
@@ -19,10 +21,12 @@ const CONTROLS = [
   YtSizeControlComponent,
   YtLoopControlComponent,
   YtSliderComponent,
+  YtSequenceRendererComponent,
 ];
 
 const EXPORTS = [
   YtVideoPlayerComponent,
+  YtImagePlayerComponent,
   YtSourceDirective,
 ];
 
@@ -34,6 +38,7 @@ const EXPORTS = [
   imports: [
     CommonModule,
   ],
+  entryComponents: [YtSequenceRendererComponent],
   exports: [
     ...EXPORTS,
   ],
