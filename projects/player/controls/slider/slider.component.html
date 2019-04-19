@@ -5,10 +5,14 @@
           #trackRef
           (focus)="focused.emit()"
           (blur)="blured.emit()"
+          (mousemove)="updateSeekPreivew($event)"
+          (mouseout)="seekPreivew = 0"
           (keydown.ArrowLeft)="updateBy(-5)"
           (keydown.ArrowRight)="updateBy(5)"
           tabindex="0">
      </div>
+     <div class="yt-slider-seek-preview"
+          [style.width.%]="seekPreivew"></div>
      <div class="yt-slider-progress"
           [style.width.%]="progress"></div>
      <div class="yt-slider-thumb-click-area"

@@ -32,10 +32,15 @@ yt-slider {
       background-color: rgba($_white-clouds, .3);
     }
 
+    &-seek-preview {
+      background-color: rgba($_white-clouds, .7);
+    }
+
     &-progress {
       background-color: $_white-clouds;
     }
 
+    &-seek-preview,
     &-progress,
     &-track {
       position: absolute;

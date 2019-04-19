@@ -48,6 +48,7 @@
         }
 
         .yt-slider-progress,
+        .yt-slider-seek-preview,
         .yt-slider-track {
           transition: $_default-transition;
           transition-property: height;
@@ -62,6 +63,7 @@
           }
 
           .yt-slider-progress,
+          .yt-slider-seek-preview,
           .yt-slider-track {
             height: $_slider-height + $_progress-grow;
           }
