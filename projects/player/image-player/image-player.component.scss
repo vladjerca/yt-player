@@ -1,0 +1,6 @@
+@import "../styles/constants";
+@import "../shared/player";
+
+yt-image-player {
+  @include player-styles();
+}
