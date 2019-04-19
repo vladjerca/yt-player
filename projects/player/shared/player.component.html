@@ -1,6 +1,10 @@
 <ng-container #container></ng-container>
-
 <ng-container *ngIf="!!player">
+  <yt-spinner *ngIf="player.loading$ | async"
+              [diameter]="70"
+              [strokeWidth]="6"
+              class="yt-video-loader">
+  </yt-spinner>
   <div class="yt-video-controls"
        (click)="$event.stopPropagation()">
     <div class="yt-video-progress">
@@ -13,8 +17,7 @@
       <yt-control-play-pause [(state)]="player.state"
                              (focused)="focusedControl$.next()">
       </yt-control-play-pause>
-      <yt-control-volume *ngIf="player.mute == null &&
-                                player.volume == null"
+      <yt-control-volume *ngIf="player.hasAudio"
                          [(volume)]="player.volume"
                          [(mute)]="player.mute"
                          (focused)="focusedControl$.next()">

@@ -6,6 +6,7 @@ import {
   YtPlayPauseControlComponent,
   YtSizeControlComponent,
   YtSliderComponent,
+  YtSpinnerComponent,
   YtVolumeControlComponent,
 } from './controls';
 import { YtImagePlayerComponent } from './image-player';
@@ -22,6 +23,7 @@ const CONTROLS = [
   YtLoopControlComponent,
   YtSliderComponent,
   YtSequenceRendererComponent,
+  YtSpinnerComponent,
 ];
 
 const EXPORTS = [

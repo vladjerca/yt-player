@@ -2,6 +2,8 @@ import { PreloadStrategy } from '../types';
 
 export type IVideoRendererHandler = (ev?: {}) => void;
 
+export type PlayerEventName = 'loadeddata' | 'ended' | 'waiting' | 'playing';
+
 export interface IVideoRenderer {
   volume: number;
   muted: boolean;
@@ -15,8 +17,8 @@ export interface IVideoRenderer {
   duration: number;
   currentTime: number;
 
-  addEventListener: (ev: 'loadeddata' | 'ended', handler: IVideoRendererHandler) => void;
-  removeEventListener: (ev: 'loadeddata' | 'ended', handler: IVideoRendererHandler) => void;
+  addEventListener: (ev: PlayerEventName, handler: IVideoRendererHandler) => void;
+  removeEventListener: (ev: PlayerEventName, handler: IVideoRendererHandler) => void;
 
   play(): Promise<void>;
   pause(): void;

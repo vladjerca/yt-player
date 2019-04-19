@@ -36,6 +36,12 @@
     }
 
     &-video {
+      &-loader {
+        position: absolute;
+        top: calc(50% - 35px);
+        left: calc(50% - 35px);
+      }
+
       &-progress {
         width: calc(100% - #{$_margin * 2});
         display: inline-flex;
@@ -48,6 +54,7 @@
         }
 
         .yt-slider-progress,
+        .yt-slider-seek-preview,
         .yt-slider-track {
           transition: $_default-transition;
           transition-property: height;
@@ -62,6 +69,7 @@
           }
 
           .yt-slider-progress,
+          .yt-slider-seek-preview,
           .yt-slider-track {
             height: $_slider-height + $_progress-grow;
           }

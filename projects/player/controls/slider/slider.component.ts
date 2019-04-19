@@ -50,6 +50,8 @@ export class YtSliderComponent implements OnDestroy {
   @Output()
   public blured = new EventEmitter<number>();
 
+  public seekPreivew = 0;
+
   private _dragging = false;
   private _progress = 0;
   private _slideEl: HTMLElement;
@@ -67,6 +69,10 @@ export class YtSliderComponent implements OnDestroy {
   ngOnDestroy() {
     this.progressChange.complete();
     this.focused.complete();
+  }
+
+  public updateSeekPreivew(ev: MouseEvent) {
+    this.seekPreivew = this._evToProgress(ev);
   }
 
   public startDrag() {
